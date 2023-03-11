@@ -1,0 +1,17 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "regexManagers": [
+    {
+      "fileMatch": [
+        ".github/workflows/docker-publish.yml",
+        "Jenkinsfile",
+        "Makefile"
+      ],
+      "matchStrings": [
+        "depName=(?<depName>.*?)( datasource=(?<datasource>.*?))?( versioning=(?<versioning>.*?))?\n.*?IMAGE_TAG[:= ']*(?<currentValue>.*?)[']?\n"
+      ],
+      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}docker{{/if}}",
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}docker{{/if}}"
+    }
+  ]
+}
