@@ -4,7 +4,7 @@ export DOCKER_BUILDKIT=1
 
 IMAGE_FULLNAME=git.devmem.ru/projects/nextcloud
 # renovate: depName=nextcloud
-IMAGE_TAG=27.1.7-fpm
+IMAGE_TAG=27.1.8-fpm
 IMAGE=${IMAGE_FULLNAME}:${IMAGE_TAG}
 
 default: build
