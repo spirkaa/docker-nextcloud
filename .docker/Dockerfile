@@ -6,8 +6,8 @@ ARG BUILD_IMAGE
 
 FROM ${CURL_IMAGE} AS download
 
-ARG FFMPEG_VERSION=7.0-static
-ARG MD5_SUM=f8997c40659a38818d593f720c5ff188
+ARG FFMPEG_VERSION=7.0.1-static
+ARG MD5_SUM=d36bf3c1d6f8c609c45e7658a77ed8ee
 ARG PKG_NAME=ffmpeg-release-amd64-static.tar.xz
 
 SHELL ["/bin/ash", "-euxo", "pipefail", "-c"]
