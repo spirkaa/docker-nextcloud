@@ -19,7 +19,7 @@ pipeline {
     IMAGE_BASENAME = 'nextcloud'
     IMAGE_FULLNAME = "${REGISTRY}/${IMAGE_OWNER}/${IMAGE_BASENAME}"
     // renovate: depName=nextcloud
-    IMAGE_TAG = '28.0.14-fpm'
+    IMAGE_TAG = '29.0.10-fpm'
     DOCKERFILE = '.docker/Dockerfile'
     LABEL_AUTHORS = 'Ilya Pavlov <piv@devmem.ru>'
     LABEL_TITLE = 'Nextcloud'
