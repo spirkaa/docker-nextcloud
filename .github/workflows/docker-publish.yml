@@ -15,7 +15,7 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.actor }}/nextcloud
   # renovate: depName=nextcloud
-  IMAGE_TAG: 30.0.6-fpm
+  IMAGE_TAG: 30.0.8-fpm
 
 jobs:
   build:
