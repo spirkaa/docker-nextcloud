@@ -6,20 +6,21 @@ ARG BUILD_IMAGE
 
 FROM ${CURL_IMAGE} AS download
 
-ARG FFMPEG_VERSION=7.0.2-static
-ARG MD5_SUM=7fa72b652e19bf84c9461e332ea1cdf3
-ARG PKG_NAME=ffmpeg-release-amd64-static.tar.xz
+ARG PKG_REF=autobuild-2026-11-20-12-40
+ARG PKG_NAME=ffmpeg-n9.0.2-61-gd59078794d-linux64-gpl-9.0.tar.xz
+ARG SHA256_SUM=080e804801eac92399a98687575b64aa38e557ed651cc381dfbc1e8fe5c2ccd8
 
 SHELL ["/bin/ash", "-euxo", "pipefail", "-c"]
 WORKDIR /tmp
 
-RUN curl -fsSL -O "https://johnvansickle.com/ffmpeg/releases/${PKG_NAME}" \
-    && echo "${MD5_SUM}  ${PKG_NAME}" | md5sum -c - \
-    && tar xvf "${PKG_NAME}" --strip-components=1 \
-    && ./ffmpeg -version | grep -E "${FFMPEG_VERSION}"
+RUN curl -fsSL -O "https://github.com/FFmpeg-Builds/FFmpeg-Builds/releases/download/${PKG_REF}/${PKG_NAME}" \
+    && echo "${SHA256_SUM}  ${PKG_NAME}" | sha256sum -c - \
+    && tar xvf "${PKG_NAME}" --strip-components=1
 
 
 FROM ${BUILD_IMAGE} AS build
+
+ARG FFMPEG_VERSION=9.0.2-61-gd59078794d
 
 RUN set -eux \
     && apt-get update \
@@ -28,5 +29,7 @@ RUN set -eux \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=download /tmp/ffmpeg /usr/bin/ffmpeg
-COPY --from=download /tmp/ffprobe /usr/bin/ffprobe
+COPY --from=download /tmp/bin/ffmpeg /usr/bin/ffmpeg
+COPY --from=download /tmp/bin/ffprobe /usr/bin/ffprobe
+
+RUN ffmpeg -version | grep -E "^ffmpeg version n${FFMPEG_VERSION}-"
